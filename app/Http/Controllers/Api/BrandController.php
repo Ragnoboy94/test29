@@ -9,7 +9,14 @@ use Illuminate\Http\Request;
 class BrandController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *   path="/api/brands",
+     *   tags={"Brands"},
+     *   summary="Список марок",
+     *   @OA\Response(response=200, description="OK",
+     *     @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Brand"))
+     *   )
+     * )
      */
     public function index()
     {

@@ -9,7 +9,15 @@ use Illuminate\Http\Request;
 class CarModelController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *   path="/api/models",
+     *   tags={"Models"},
+     *   summary="Список моделей",
+     *   @OA\Parameter(name="brand_id", in="query", required=false, @OA\Schema(type="integer")),
+     *   @OA\Response(response=200, description="OK",
+     *     @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/CarModel"))
+     *   )
+     * )
      */
     public function index(Request $r)
     {

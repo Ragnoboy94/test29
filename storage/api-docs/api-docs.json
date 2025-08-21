@@ -1,0 +1,439 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "test29 API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:6080"
+        },
+        {
+            "url": "http://localhost:6080"
+        }
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Логин, выдача токена",
+                "operationId": "222b2625838e3c57e017987f73598fda",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/brands": {
+            "get": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Список марок",
+                "operationId": "130f2bd423b6fe2355253e2c39878d99",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Brand"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cars": {
+            "get": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Мои автомобили",
+                "operationId": "4e913ee0b6125f5ad41f32df1df5b8a4",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Car"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Создать авто",
+                "operationId": "fbbced9da0be8a33be9dfad182f803bb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CarCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Car"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cars/{id}": {
+            "get": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Показать авто",
+                "operationId": "27c826192271dae5e6e7246be568b4ca",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Car"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Обновить авто",
+                "operationId": "f84c9fc1375930730b178bbf270fa554",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CarCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Car"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Удалить авто",
+                "operationId": "75e30982110a5b0506c52b55cd0f15f8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/models": {
+            "get": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "Список моделей",
+                "operationId": "745853ea449aca3961a98f4da93447bb",
+                "parameters": [
+                    {
+                        "name": "brand_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CarModel"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Brand": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Toyota"
+                    }
+                },
+                "type": "object"
+            },
+            "CarModel": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Corolla"
+                    },
+                    "brand_id": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "Car": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "brand_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "car_model_id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "year": {
+                        "type": "integer",
+                        "example": 2020,
+                        "nullable": true
+                    },
+                    "mileage": {
+                        "type": "integer",
+                        "example": 12000,
+                        "nullable": true
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "black",
+                        "nullable": true
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 5,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "CarCreate": {
+                "required": [
+                    "brand_id",
+                    "car_model_id"
+                ],
+                "properties": {
+                    "brand_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "car_model_id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "year": {
+                        "type": "integer",
+                        "example": 2020
+                    },
+                    "mileage": {
+                        "type": "integer",
+                        "example": 12000
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "black"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "test@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "TokenResponse": {
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "example": "1|abcd..."
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "Token",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Brands",
+            "description": "Brands"
+        },
+        {
+            "name": "Cars",
+            "description": "Cars"
+        },
+        {
+            "name": "Models",
+            "description": "Models"
+        }
+    ]
+}

@@ -9,6 +9,16 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+    /**
+     * @OA\Post(
+     *   path="/api/login",
+     *   tags={"Auth"},
+     *   summary="Логин, выдача токена",
+     *   @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/LoginRequest")),
+     *   @OA\Response(response=200, description="OK", @OA\JsonContent(ref="#/components/schemas/TokenResponse")),
+     *   @OA\Response(response=422, description="Invalid credentials")
+     * )
+     */
     public function login(Request $r)
     {
         $r->validate(['email' => 'required|email', 'password' => 'required|string']);
